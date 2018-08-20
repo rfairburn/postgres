@@ -60,9 +60,9 @@ RUN set -ex \
 		perl-utils \
 # configure: error: Perl module IPC::Run is required to run TAP tests
 		perl-ipc-run \
-#		perl-dev \
-#		python-dev \
-#		python3-dev \
+		perl-dev \
+		python-dev \
+		python3-dev \
 #		tcl-dev \
 		util-linux-dev \
 		zlib-dev \
@@ -102,8 +102,8 @@ RUN set -ex \
 #		--with-gssapi \
 #		--with-ldap \
 #		--with-tcl \
-#		--with-perl \
-#		--with-python \
+		--with-perl \
+		--with-python \
 #		--with-pam \
 		--with-openssl \
 		--with-libxml \
@@ -131,7 +131,8 @@ RUN set -ex \
 		/usr/src/postgresql \
 		/usr/local/share/doc \
 		/usr/local/share/man \
-	&& find /usr/local -name '*.a' -delete
+	&& find /usr/local -name '*.a' -delete \
+	&& ln -s /usr/lib/perl5/core_perl/CORE/libperl.so /usr/lib/libperl.so
 
 # make the sample config easier to munge (and "correct by default")
 RUN sed -ri "s!^#?(listen_addresses)\s*=\s*\S+.*!\1 = '*'!" /usr/local/share/postgresql/postgresql.conf.sample
